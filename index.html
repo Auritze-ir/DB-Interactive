@@ -3,142 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Classroom — Don Bosco</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Interactive Classroom — CIFP Don Bosco LHII</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f1e30;
-    --white: #f8fafc;
-    --muted: #8bb8d4;
-    --orange: #e8621a;
-    --cyan: #00d4e8;
-    --yellow: #ffd94a;
-    --pink: #f472b6;
+    --paper:  #ffffff;
+    --ink:    #14213d;
+    --soft:   #5b6577;
+    --cobalt: #2b4acb;
+    --sun:    #f5c518;
+    --mint:   #1fa67a;
+    --berry:  #d63a6e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
   body {
-    font-family: 'Nunito', sans-serif;
-    background: radial-gradient(ellipse at 30% 20%, #1e3a5f 0%, var(--bg) 60%);
-    background-color: var(--bg);
-    color: var(--white);
-    min-height: 100vh;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 56px 16px 40px;
+    min-height: 100vh;
   }
-  header { text-align: center; margin-bottom: 44px; }
-  .brand {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(2.2rem, 6vw, 3.8rem);
-    color: var(--orange);
-    text-shadow: 0 0 40px rgba(232,98,26,0.5), 3px 3px 0 #7a2800;
+
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 40px 48px 32px;
+    flex-wrap: wrap;
   }
-  .sub {
-    color: var(--cyan);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    margin-top: 6px;
-    opacity: 0.85;
+  .school {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--cobalt);
+    margin-bottom: 6px;
   }
   h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    margin-top: 28px;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
   }
   .intro {
-    color: var(--muted);
-    max-width: 560px;
-    margin: 10px auto 0;
-    font-size: 1.05rem;
-    line-height: 1.5;
+    max-width: 34ch;
+    font-size: 1.1rem;
+    line-height: 1.45;
+    color: var(--soft);
   }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-    width: 100%;
-    max-width: 1200px;
+
+  /* ── The wall: four panels that widen when touched ── */
+  .wall {
+    flex: 1 0 auto;
+    display: flex;
+    gap: 14px;
+    padding: 0 48px 40px;
+    min-height: 420px;
   }
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
-  .card {
+  .panel {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 32px 22px;
-    border-radius: 22px;
-    border: 2px solid var(--c);
-    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-    color: inherit;
+    justify-content: space-between;
+    padding: 32px 28px;
+    border-radius: 28px;
+    background: var(--bg);
+    color: var(--fg);
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: flex-grow 0.35s ease;
+    outline-offset: 5px;
   }
-  .card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 40px var(--glow); }
-  .icon { font-size: 3rem; margin-bottom: 12px; }
+  .panel:hover, .panel:focus-visible { flex-grow: 1.35; }
+  .panel:focus-visible { outline: 4px solid var(--ink); }
+
+  .icon {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: grid;
+    place-items: center;
+    font-size: 2.6rem;
+  }
   .name {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.4rem;
-    color: var(--c);
-    margin-bottom: 8px;
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
   }
-  .desc { color: var(--muted); font-size: 0.92rem; line-height: 1.45; flex: 1; }
-  .go {
-    margin-top: 20px;
-    background: var(--c);
-    color: #0f1e30;
-    font-weight: 900;
-    padding: 10px 26px;
-    border-radius: 50px;
-    font-size: 0.95rem;
+  .desc {
+    font-size: 1.02rem;
+    line-height: 1.4;
+    max-width: 28ch;
+    opacity: 0.9;
   }
-  .card.soon { opacity: 0.55; pointer-events: none; border-style: dashed; }
-  .card.soon .go { background: rgba(255,255,255,0.12); color: var(--white); }
-  footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; opacity: 0.7; text-align: center; }
+  .action {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: var(--fg);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .quiz   { --bg: var(--sun);    --fg: var(--ink); }
+  .wallg  { --bg: var(--cobalt); --fg: #ffffff; }
+  .vr     { --bg: var(--mint);   --fg: #ffffff; }
+  .escape { --bg: var(--berry);  --fg: #ffffff; }
+
+  footer {
+    padding: 0 48px 28px;
+    font-size: 0.9rem;
+    color: var(--soft);
+  }
+
+  @media (max-width: 900px) {
+    header { padding: 32px 24px 24px; }
+    .wall { flex-wrap: wrap; padding: 0 24px 32px; }
+    .panel { flex: 1 1 calc(50% - 7px); min-height: 280px; }
+    .panel:hover, .panel:focus-visible { flex-grow: 1; }
+    footer { padding: 0 24px 24px; }
+  }
+  @media (max-width: 520px) {
+    header { padding: 28px 16px 20px; }
+    .wall { padding: 0 16px 28px; }
+    .panel { flex-basis: 100%; min-height: 230px; }
+    footer { padding: 0 16px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .panel { transition: none; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="brand">🏫 CIFP Don Bosco LHII</div>
-  <div class="sub">Errenteria · Vocational Training</div>
-  <h1>🖐️ Interactive Classroom</h1>
-  <p class="intro">Activities for the interactive classroom. Choose one and start playing!</p>
+  <div>
+    <div class="school">CIFP Don Bosco LHII</div>
+    <h1>Interactive Classroom</h1>
+  </div>
+  <p class="intro">Pick an activity and touch its panel to start.</p>
 </header>
 
-<main class="grid">
-  <a class="card" href="https://auritze-ir.github.io/DB-Quiz/" style="--c:var(--yellow);--glow:rgba(255,217,74,0.3)">
+<main class="wall">
+  <a class="panel quiz" href="https://auritze-ir.github.io/DB-Quiz/">
     <div class="icon">🧠</div>
-    <div class="name">Don Bosco Quiz</div>
-    <div class="desc">14 questions to get to know the centre before the visit.</div>
-    <div class="go">Play →</div>
+    <div>
+      <div class="name">Don Bosco Quiz</div>
+      <p class="desc">14 questions to get to know the centre before the visit.</p>
+      <span class="action">Play</span>
+    </div>
   </a>
 
-  <a class="card" href="https://auritze-ir.github.io/pareta-interaktiboa-jolasa//interactive-wall" style="--c:var(--orange);--glow:rgba(232,98,26,0.3)">
+  <a class="panel wallg" href="https://auritze-ir.github.io/pareta-interaktiboa-jolasa//interactive-wall">
     <div class="icon">✋</div>
-    <div class="name">Wall Game</div>
-    <div class="desc">Minigames to practise every gesture on the interactive wall: tap, drag, pinch, draw and teamwork.</div>
-    <div class="go">Play →</div>
+    <div>
+      <div class="name">Wall Game</div>
+      <p class="desc">Minigames to practise every gesture on the interactive wall: tap, drag, pinch, draw and teamwork.</p>
+      <span class="action">Play</span>
+    </div>
   </a>
 
-  <a class="card" href="https://www.youtube.com/playlist?list=PLivjPDlt6ApRq22sn082ZCC9893XtV8xc" style="--c:var(--cyan);--glow:rgba(0,212,232,0.3)">
+  <a class="panel vr" href="https://www.youtube.com/playlist?list=PLivjPDlt6ApRq22sn082ZCC9893XtV8xc">
     <div class="icon">🌐</div>
-    <div class="name">360° Examples</div>
-    <div class="desc">Playlist of 360° videos to explore in the interactive classroom.</div>
-    <div class="go">Watch →</div>
+    <div>
+      <div class="name">360° Examples</div>
+      <p class="desc">Playlist of 360° videos to explore in the interactive classroom.</p>
+      <span class="action">Watch</span>
+    </div>
   </a>
 
-  <a class="card" href="https://auritze-ir.github.io/escape-room-steeam/index2" style="--c:var(--pink);--glow:rgba(244,114,182,0.3)">
+  <a class="panel escape" href="https://auritze-ir.github.io/escape-room-steeam/index2">
     <div class="icon">🔐</div>
-    <div class="name">Escape Room</div>
-    <div class="desc">Solve the challenges as a team to escape the room.</div>
-    <div class="go">Play →</div>
+    <div>
+      <div class="name">Escape Room</div>
+      <p class="desc">Solve the challenges as a team to escape the room.</p>
+      <span class="action">Play</span>
+    </div>
   </a>
 </main>
 
-<footer>CIFP Don Bosco LHII · Errenteria</footer>
+<footer>CIFP Don Bosco LHII, Errenteria</footer>
 
 </body>
 </html>
